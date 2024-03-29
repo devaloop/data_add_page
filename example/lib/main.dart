@@ -31,12 +31,30 @@ class MyApp extends StatelessWidget {
             label: 'Email (Google Account)',
             inputTextMode: InputTextMode.email,
           ),
+          InputForm(
+            name: 'detail',
+            label: 'Detail',
+            inputFields: [
+              InputNumber(
+                name: 'age',
+                label: 'Age',
+              ),
+            ],
+          ),
         ],
         onAfterValidation: (context, inputValues, isValid, erorMessage) {
           if (isValid) {
             if (!inputValues['email']!.getString()!.contains('gmail.com')) {
               erorMessage['email'] = 'Email must an google account (gmail.com)';
             }
+          }
+        },
+        onValueChanged:
+            (context, input, previousValue, currentValue, inputValues) {
+          if (input.name == 'name') {
+            inputValues['detail']!.setFormValues([
+              {'age': 33}
+            ]);
           }
         },
         add: (inputValues) => Future(() async {
